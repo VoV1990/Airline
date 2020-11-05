@@ -15,23 +15,26 @@ public class Main {
                 "11.00", "Wednesday");
         Airline airline5 = new Airline("Munich", 65421, "Boeing 767",
                 "11.40", "Friday");
-        Airline[] airlines = {airline1, airline2, airline3, airline4, airline5};
-        AirlinesDatabase database = new AirlinesDatabase(airlines);
+        AirlinesDatabase database = new AirlinesDatabase(airline1, airline2, airline3, airline4, airline5);
         chooseOption(database);
     }
 
     private static void chooseOption(AirlinesDatabase database) throws IOException {
         boolean stop = false;
-        int option;
+        int option = 0;
         do{
             System.out.println("Please choose one of the suggested options and enter its number.");
             System.out.println("1. Display a list of flights for a given destination.");
             System.out.println("2. Display a list of flights for a given day of the week.");
             System.out.println("3. Display a list of flights for a given day of the week that have " +
                     "a longer departure time than the specified one.");
-            option = Integer.parseInt(reader.readLine());
+            try {
+                option = Integer.parseInt(reader.readLine());
+            } catch (Exception e) {
+                System.out.println("Invalid data.");
+            }
             if(option == 1 || option == 2 || option == 3) stop = true;
-            else System.out.println("Please try again");
+            else System.out.println("Please try again.");
         } while (!stop);
         getFlights(option, database);
     }
